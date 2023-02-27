@@ -48,29 +48,3 @@ spec:
             path: /realms/master
             port: 8080
          
-#istioctl install --set profile=demo -y
-#kubectl label namespace default istio-injection=enabled         
-#kubectl apply -f yamls/keycloak.yaml
-#kubectl port-forward deployment/keycloak 8080:8080
-#create client myclient with role and user fatma
-#kubectl apply -f yamls/service_account.yaml
-#kubectl apply -f yamls/kube_demo_v1.yaml
-
-#kubectl apply -f yamls/kube-demo-v2.yaml
-#kubectl apply -f yamls/kube-demo-v3.yaml
-
-
-#kubectl apply -f yamls/kube_demo_svc.yaml
-#kubectl get pods -n istio-system
-#kubectl get svc -n istio-system
-
-#without jwt
-#kubectl apply -f yamls/kubedemo_gateway.yaml
-#kubectl apply -f yamls/kubedemo_nosec_virtualservice.yaml
-
-
-
-# with jwt
-#kubectl delete -f yamls/kubedemo_nosec_virtualservice.yaml
-#kubectl apply -f yamls/kubedemo_jwt.yaml
-#kubectl apply -f yamls/kubedemo_jwt_virtual.yaml
