@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-demo-v1
+  labels:
+    app: kube-demo
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-demo
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: kube-demo
+        version: v1
+    spec:
+      serviceAccountName: accountfatma
+      containers:
+      - name: kube-demo
+        image: greenredblue/kubedemo:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1999
+        resources:
+          limits:
+            cpu: 400m
+          requests:
+            cpu: 200m
+
+---

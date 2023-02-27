@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: keycloak
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:21.0.0
+        args: ["start-dev"]
+        env:
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "admin"
+        - name: KC_PROXY
+          value: "edge"
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080
+         
+#istioctl install --set profile=demo -y
+#kubectl label namespace default istio-injection=enabled         
+#kubectl apply -f yamls/keycloak.yaml
+#kubectl port-forward deployment/keycloak 8080:8080
+#create client myclient with role and user fatma
+#kubectl apply -f yamls/service_account.yaml
+#kubectl apply -f yamls/kube_demo_v1.yaml
+
+#kubectl apply -f yamls/kube-demo-v2.yaml
+#kubectl apply -f yamls/kube-demo-v3.yaml
+
+
+#kubectl apply -f yamls/kube_demo_svc.yaml
+#kubectl get pods -n istio-system
+#kubectl get svc -n istio-system
+
+#without jwt
+#kubectl apply -f yamls/kubedemo_gateway.yaml
+#kubectl apply -f yamls/kubedemo_nosec_virtualservice.yaml
+
+
+
+# with jwt
+#kubectl delete -f yamls/kubedemo_nosec_virtualservice.yaml
+#kubectl apply -f yamls/kubedemo_jwt.yaml
+#kubectl apply -f yamls/kubedemo_jwt_virtual.yaml

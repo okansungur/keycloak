@@ -1,0 +1,13 @@
+{
+  "realm": "myrealm",
+  "auth-server-url": "http://192.168.0.24:8080/",
+  "ssl-required": "external",
+  "resource": "myclient",
+  
+  "credentials": {
+    "secret": "V7QtJg7aPNjMZKXCu8xmFc2LYOado2UL"
+  }
+  
+  
+  
+}

@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mydemo
+  namespace: default
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - kubedemo-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+      headers:
+        "@request.auth.claims.realm_access.roles":
+          exact: fatma
+    route:
+    - destination:
+        port:
+          number: 1999
+        host: kube-demo-svc

@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: ingress-jwt
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+  - issuer: "http://localhost:8080/realms/master"
+    jwksUri: "http://10.103.25.170:8080/realms/master/protocol/openid-connect/certs"
+    # use keycloak cluster ip for localhost keycloak on docker desktop
+    # http://localhost:30918
